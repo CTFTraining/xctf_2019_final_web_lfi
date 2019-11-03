@@ -68,4 +68,4 @@ WORKDIR /inetpub/wwwroot
 
 COPY ./files/html .
 
-ENTRYPOINT ["powershell", "((Get-Content /inetpub/wwwroot/flag.php).replace('flag_here', $env:FLAG) | Set-Content /inetpub/wwwroot/flag.php); (del env:FLAG); (C:\\ServiceMonitor.exe w3svc)"]
+ENTRYPOINT ["powershell", "(icacls 'C:\\inetpub\\wwwroot\\sess' /grant IIS_IUSRS:F /T); (icacls 'C:\\inetpub\\wwwroot\\files' /grant IIS_IUSRS:F /T); ((Get-Content /inetpub/wwwroot/flag.php).replace('flag_here', $env:FLAG) | Set-Content /inetpub/wwwroot/flag.php); (del env:FLAG); (C:\\ServiceMonitor.exe w3svc)"]
